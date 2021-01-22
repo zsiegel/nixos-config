@@ -1,10 +1,14 @@
 { config, pkgs, lib, ... }:
 {
+
+  nixpkgs.config.allowUnfree = true;
+
+  console.font = "Fira Mono";
+
   i18n = {
-    consoleFont = "Fira Mono";
     defaultLocale = "en_US.UTF-8";
-  }
-  time.timezone = "America/Chicago";
+  };
+  time.timeZone = "America/Chicago";
 
   # mount tmpfs on /tmp
   boot.tmpOnTmpfs = lib.mkDefault true;
@@ -31,6 +35,7 @@
     gitAndTools.gitFull
   ];
 
+  services.openssh.enable = true;
   programs.bash.enableCompletion = true;
 
   environment.variables = {
