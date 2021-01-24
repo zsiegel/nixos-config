@@ -1,4 +1,7 @@
 { config, pkgs, lib, ... }:
+let 
+  pubkeys = import ../keys/pubkeys.nix;
+in
 {
   imports = 
     [
@@ -6,10 +9,12 @@
       ../services/grub.nix
       ../services/docker.nix
       ../profiles/base.nix
-      ../users/zsiegel.zworker01.nix
+      ../users/zsiegel.nix
     ];
 
   boot.loader.grub.device = "/dev/sda";
+
+  users.users.zsiegel.openssh.authorizedKeys.keys = [ pubkeys.zworker01 ];
 
   networking = {
     hostName = "zworker01";
